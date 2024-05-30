@@ -1,0 +1,64 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-size: 13px;
+  line-height: 23px;
+  font-size: medium;
+  color: hsl(var(--text));
+}
+
+@layer base {
+  :root {
+    --background: 220 69% 97%;
+    --foreground: 0 0% 100%;
+    --text: 237 100% 4%;
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 235 16% 15%;
+    --foreground: 235 12% 19%;
+    --text: 0 0% 100%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .heading-xl {
+    @apply font-bold text-2xl leading-[30px] text-text;
+  }
+
+  .heading-l {
+    @apply font-bold text-lg leading-[23px] text-text;
+  }
+
+  .heading-m {
+    @apply font-bold text-[15px] leading-[19px] text-text;
+  }
+
+  .heading-s {
+    @apply font-bold text-xs leading-[15px] tracking-[2.4px] text-kbMediumGrey;
+  }
+
+  *,
+  .body-l,
+  p,
+  span {
+    @apply text-[13px] leading-[23px] font-medium;
+  }
+
+  .body-m {
+    @apply text-[12px] font-bold leading-[15px];
+  }
+}
