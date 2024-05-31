@@ -13,6 +13,7 @@ body {
   :root {
     --background: 220 69% 97%;
     --foreground: 0 0% 100%;
+    --lines: 221 69% 94%;
     --text: 237 100% 4%;
 
     --radius: 0.5rem;
@@ -22,6 +23,7 @@ body {
     --background: 235 16% 15%;
     --foreground: 235 12% 19%;
     --text: 0 0% 100%;
+    --lines: 235 12% 27%;
   }
 }
 

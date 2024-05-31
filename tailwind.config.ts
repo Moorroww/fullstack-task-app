@@ -35,6 +35,7 @@ const config = {
         foreground: "hsl(var(--foreground))",
         background: "hsl(var(--background))",
         text: "hsl(var(--text))",
+        lines: "hsl(var(--lines))",
         ring: "hsl(var(--ring))",
       },
       borderRadius: {
