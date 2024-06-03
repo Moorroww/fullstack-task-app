@@ -18,6 +18,10 @@ const config = {
       },
     },
     extend: {
+      screens: {
+        tablet: "768px",
+        desktop: "1440px",
+      },
       colors: {
         kbPurpleSecondary: "#A8A4FF",
         kbPurpleMain: "#635fc7",
