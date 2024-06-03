@@ -7,6 +7,7 @@ body {
   line-height: 23px;
   font-size: medium;
   color: hsl(var(--text));
+  background-color: hsl(var(--foreground));
 }
 
 @layer base {
