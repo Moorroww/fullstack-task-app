@@ -1,12 +1,48 @@
+// HomeLayout.tsx
+"use client";
+
+import ShowSidebarButton from "@/components/ShowSidebarButton";
 import Sidebar from "@/components/Sidebar";
-import React from "react";
+import Topbar from "@/components/Topbar";
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 
 const HomeLayout = ({ children }: { children: React.ReactNode }) => {
+  const [isSidebarVisible, setIsSidebarVisible] = useState<boolean>(true);
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  const boards: boardType[] = [
+    { boardName: "Platform Launch", boardID: "1s78293xydn" },
+    { boardName: "Marketing plan", boardID: "2xny3d927h" },
+    { boardName: "Roadmap", boardID: "3xndm93d7y2" },
+  ];
+  const currentBoard: string = "Current Board";
+
+  // Here basically I try to refresh theme value so components in Topbar and Sidebar will render properly
+  useEffect(() => {
+    setMounted(true);
+    setTheme(theme == "dark" ? "dark" : "light");
+  }, [setTheme]);
+
+  if (!mounted) return null;
+
   return (
-    <div className="flex h-screen w-full">
-      <Sidebar />
-      <div className="">{children}</div>
-    </div>
+    <main className="w-screen h-screen flex flex-col">
+      <Topbar currentBoard={currentBoard} />
+      <div className="flex flex-grow">
+        <Sidebar
+          boards={boards}
+          isSidebarVisible={isSidebarVisible}
+          setIsSidebarVisible={setIsSidebarVisible}
+        />
+        <div className="size-full">{children}</div>
+      </div>
+      <ShowSidebarButton
+        isSidebarVisible={isSidebarVisible}
+        setIsSidebarVisible={setIsSidebarVisible}
+      />
+    </main>
   );
 };
 

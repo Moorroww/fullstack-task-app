@@ -7,7 +7,7 @@ body {
   line-height: 23px;
   font-size: medium;
   color: hsl(var(--text));
-  background-color: hsl(var(--foreground));
+  background-color: hsl(var(--background));
 }
 
 @layer base {
@@ -39,15 +39,15 @@ body {
 
 @layer utilities {
   .heading-xl {
-    @apply font-bold text-2xl leading-[30px] text-text;
+    @apply font-bold text-2xl leading-[30px];
   }
 
   .heading-l {
-    @apply font-bold text-lg leading-[23px] text-text;
+    @apply font-bold text-lg leading-[23px];
   }
 
   .heading-m {
-    @apply font-bold text-[15px] leading-[19px] text-text;
+    @apply font-bold text-[15px] leading-[19px];
   }
 
   .heading-s {
@@ -58,7 +58,7 @@ body {
   .body-l,
   p,
   span {
-    @apply text-[13px] leading-[23px] font-medium;
+    @apply text-[13px] leading-[23px] font-medium text-text;
   }
 
   .body-m {
