@@ -11,6 +11,7 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
   const [isSidebarVisible, setIsSidebarVisible] = useState<boolean>(true);
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const [selectedBoard, setSelectedBoard] = useState<string>("");
 
   const boards: boardType[] = [
     { boardName: "Platform Launch", boardID: "1s78293xydn" },
@@ -28,14 +29,17 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
   if (!mounted) return null;
 
   return (
-    <main className="w-screen h-screen flex flex-col">
-      <Topbar currentBoard={currentBoard} />
-      <div className="flex flex-grow">
-        <Sidebar
-          boards={boards}
-          isSidebarVisible={isSidebarVisible}
-          setIsSidebarVisible={setIsSidebarVisible}
-        />
+    <main className="w-screen h-screen flex">
+      <Sidebar
+        boards={boards}
+        isSidebarVisible={isSidebarVisible}
+        setIsSidebarVisible={setIsSidebarVisible}
+        setSelectedBoard={setSelectedBoard}
+        selectedBoard={selectedBoard}
+      />
+      <div className="flex flex-grow flex-col">
+        <Topbar currentBoard={currentBoard} selectedBoard={selectedBoard} />
+
         <div className="size-full">{children}</div>
       </div>
       <ShowSidebarButton

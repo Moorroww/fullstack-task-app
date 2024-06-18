@@ -4,29 +4,34 @@ import { useTheme } from "next-themes";
 import React from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
-const Topbar = ({ currentBoard }: { currentBoard: string }) => {
+const Topbar = ({
+  currentBoard,
+  selectedBoard,
+}: {
+  currentBoard: string;
+  selectedBoard: string;
+}) => {
   const { theme } = useTheme();
 
   return (
-    <div className="w-screen h-[81px] bg-foreground flex ">
-      <div className="min-w-[260px] border-r-2 border-lines">
-        <Image
-          priority
-          src={
-            theme === "dark" ? "/logos/logo-light.svg" : "/logos/logo-dark.svg"
-          }
-          width="153"
-          height="26"
-          alt="kanban logo"
-          className="mt-8 ml-[34px] tablet:mr-[81px] desktop:mr-[113px]"
-        />
-      </div>
-
+    <header className="w-full bg-foreground flex">
       <div className="p-6 flex items-center justify-between w-full">
-        <p className="heading-xl">{currentBoard}</p>
+        <div className="flex items-center gap-4">
+          <Image
+            className="tablet:hidden"
+            src="/logos/logo-mobile.svg"
+            width={24}
+            height={25}
+            alt="kanban logo"
+          />
+          <p className="heading-xl">{currentBoard}</p>
+        </div>
         <div className="flex items-center gap-6">
-          <Button>+ Add New Column</Button>
+          <Button disabled={selectedBoard == ""}>
+            + <span className="hidden tablet:flex">Add New Column</span>
+          </Button>
 
           <Image
             className="cursor-pointer"
@@ -37,7 +42,7 @@ const Topbar = ({ currentBoard }: { currentBoard: string }) => {
           />
         </div>
       </div>
-    </div>
+    </header>
   );
 };
 

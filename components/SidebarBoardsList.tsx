@@ -1,9 +1,11 @@
 import { cn } from "@/lib/utils";
 import BoardIcon from "@/public/icons/BoardIcon";
 
-const SidebarBoardsList = ({ boards = [] }: SidebarBoardsListType) => {
-  const boardSelected = false;
-
+const SidebarBoardsList = ({
+  boards = [],
+  setSelectedBoard,
+  selectedBoard,
+}: SidebarBoardsListType) => {
   return (
     <div>
       <p className="pl-8 text-kbMediumGrey mb-5">
@@ -13,13 +15,17 @@ const SidebarBoardsList = ({ boards = [] }: SidebarBoardsListType) => {
         {boards.map(({ boardName, boardID }) => {
           return (
             <li
+              onClick={() => setSelectedBoard(boardName)}
               className={cn(
                 "heading-m text-kbMediumGrey flex items-center gap-4 py-4 pl-8 mr-6 cursor-pointer",
-                boardSelected && "bg-kbPurpleMain rounded-r-full text-white"
+                boardName == selectedBoard &&
+                  "bg-kbPurpleMain rounded-r-full text-white"
               )}
               key={boardID}
             >
-              <BoardIcon fill={boardSelected ? "#FFFFFF" : "#828FA3"} />
+              <BoardIcon
+                fill={boardName == selectedBoard ? "#FFFFFF" : "#828FA3"}
+              />
               {boardName}
             </li>
           );

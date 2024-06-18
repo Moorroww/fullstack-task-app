@@ -5,4 +5,6 @@ type boardType = {
 
 type SidebarBoardsListType = {
   boards: boardType[];
+  setSelectedBoard: React.Dispatch<React.SetStateAction<string>>;
+  selectedBoard: string;
 };
