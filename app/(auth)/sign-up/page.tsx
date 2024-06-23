@@ -1,11 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { validateSignup } from "@/actions/actions.signup";
+import { createNewUser, validateSignup } from "@/actions/actions.signup";
+import { redirectSignIn } from "@/actions/actions.redirect";
 
 import FormInputField from "@/components/FormInputField";
 import { Button } from "@/components/ui/button";
-import { toast } from "sonner";
 
 const SignUpPage = () => {
   const [email, setEmail] = useState<string>("");
@@ -17,26 +17,12 @@ const SignUpPage = () => {
     const res = await validateSignup(email, password, name);
 
     if (res === 1) {
-      // console.log("Form is valid");
-      // const promise = () =>
-      //   new Promise((resolve) =>
-      //     setTimeout(() => resolve({ name: "Sonner" }), 2000)
-      //   );
-      // toast.promise(promise, {
-      //   loading: "Creating account...",
-      //   success: (data) => {
-      //     return `${
-      //       email.split("@")[0]
-      //     }, your accout has been created successfully! Redirecting to loogin in 2 seconds`;
-      //   },
-      //   error: "Error",
-      // });
-      // timeout login redirect here
+      createNewUser(email, password, name);
     }
   };
 
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col gap-8 w-full max-w-[480px] px-6">
       <form
         onSubmit={(e) => handleFormValidation(e)}
         className="flex flex-col gap-3"
@@ -62,6 +48,16 @@ const SignUpPage = () => {
           Sign Up
         </Button>
       </form>
+
+      <Button
+        variant="link"
+        className="text-right text-kbPurpleMain cursor-pointer self-end"
+        onClick={() => {
+          redirectSignIn();
+        }}
+      >
+        log in
+      </Button>
     </div>
   );
 };

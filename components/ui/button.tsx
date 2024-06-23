@@ -16,6 +16,7 @@ const buttonVariants = cva(
         secondary:
           "bg-kbPurpleMain/10 text-kbPurpleMain hover:bg-kbPurpleMain/25 dark:bg-white dark:hover:bg-white dark:text-kbPurpleMain",
         destructive: "bg-kbRed hover:bg-kbRedSecondary text-white ",
+        link: "bg-transparent text-kbPurpleMain underline",
       },
       size: {
         default: "h-10 px-4 py-2",
