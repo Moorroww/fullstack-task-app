@@ -7,7 +7,7 @@ const SidebarBoardsList = ({
   selectedBoard,
 }: SidebarBoardsListType) => {
   return (
-    <div>
+    <div className="mt-4 tablet:mt-0">
       <p className="pl-8 text-kbMediumGrey mb-5">
         All boards ({boards.length})
       </p>
@@ -17,7 +17,7 @@ const SidebarBoardsList = ({
             <li
               onClick={() => setSelectedBoard(boardName)}
               className={cn(
-                "heading-m text-kbMediumGrey flex items-center gap-4 py-4 pl-8 mr-6 cursor-pointer",
+                "heading-m text-kbMediumGrey flex items-center gap-4 py-4 pl-8 pr-6 tablet:pr-0 mr-6 cursor-pointer",
                 boardName == selectedBoard &&
                   "bg-kbPurpleMain rounded-r-full text-white"
               )}

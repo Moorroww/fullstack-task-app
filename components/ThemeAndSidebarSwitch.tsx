@@ -14,7 +14,7 @@ const ThemeAndSidebarSwitch = ({
   const { setTheme, theme } = useTheme();
 
   return (
-    <div className="mb-12 self-center gap-2">
+    <div className="mb-12 self-center gap-2 mt-4 tablet:mt-0">
       <div className="px-16 py-4 flex items-center gap-6 bg-background rounded-[6px]">
         <Image
           src="/icons/icon-light-theme.svg"
@@ -38,7 +38,7 @@ const ThemeAndSidebarSwitch = ({
 
       <button
         onClick={() => setIsSidebarVisible(!isSidebarVisible)}
-        className="flex gap-4 py-4 items-center"
+        className="gap-4 py-4 items-center hidden tablet:flex"
       >
         <Image
           src="/icons/icon-hide-sidebar.svg"

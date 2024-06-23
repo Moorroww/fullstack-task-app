@@ -24,12 +24,12 @@ const Sidebar = ({
   return (
     <aside
       className={cn(
-        "hidden tablet:flex w-fit h-screen min-w-[260px] items-start flex-col justify-between bg-foreground pr-3 border-r-2 border-lines",
-        isSidebarVisible ? "hidden tablet:flex" : "!hidden"
+        "absolute tablet:static left-1/2 -translate-x-1/2 tablet:translate-x-0 top-[88px] rounded-lg tablet:rounded-none flex w-fit tablet:h-screen min-w-[260px] items-start flex-col justify-between bg-foreground pr-3 tablet:border-r-2 border-lines z-10 tablet:z-0",
+        isSidebarVisible ? "tablet:flex" : "!hidden"
       )}
     >
       <div className="flex flex-col gap-14">
-        <div>
+        <div className="hidden tablet:flex">
           <Image
             priority
             src={
