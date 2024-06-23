@@ -1,11 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { createNewUser, validateSignup } from "@/actions/actions.signup";
+import { createNewUser, validateSignup } from "@/actions/actions.user";
 import { redirectSignIn } from "@/actions/actions.redirect";
 
-import FormInputField from "@/components/FormInputField";
 import { Button } from "@/components/ui/button";
+import FormInputField from "@/components/FormInputField";
 
 const SignUpPage = () => {
   const [email, setEmail] = useState<string>("");
@@ -56,7 +56,7 @@ const SignUpPage = () => {
           redirectSignIn();
         }}
       >
-        log in
+        sign in
       </Button>
     </div>
   );

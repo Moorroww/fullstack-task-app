@@ -1,13 +1,13 @@
 import { z } from "zod";
 import { Client, Account, ID } from "appwrite";
-import { redirectSignIn } from "@/actions/actions.redirect";
+import { redirectSignIn, redirectHome } from "@/actions/actions.redirect";
 import { toast } from "sonner";
 
 export const SignupSchema = z.object({
   email: z.string().email({ message: "Invalid email" }),
   password: z
     .string()
-    .min(6, { message: "Password must be at least 6 characters long" }),
+    .min(8, { message: "Password must be at least 8 characters long" }),
   name: z.string().optional(),
 });
 
@@ -55,6 +55,35 @@ export const createNewUser = async (
     },
     error: (data) => {
       return `${data.message}`;
+    },
+  });
+};
+
+export const loginUser = async (email: string, password: string) => {
+  const client = new Client()
+    .setEndpoint(`${process.env.NEXT_PUBLIC_APP_LOCAL_ENDPOINT}`)
+    .setProject(`${process.env.NEXT_PUBLIC_APP_PROJECT_ID}`);
+
+  const account = new Account(client);
+
+  const promise = new Promise((resolve) => {
+    resolve(account.createEmailPasswordSession(email, password));
+  });
+
+  toast.promise(promise, {
+    loading: "Logging in...",
+    success: (data) => {
+      setTimeout(() => {
+        redirectHome();
+      }, 4000);
+      return `Logged in successfully! Redirecting to your boards in 3 seconds...`;
+    },
+    error: (data) => {
+      return `${
+        data.code === 0
+          ? "Failed to connect to the website. Check your internet connection. The service may be offline."
+          : data.message
+      }`;
     },
   });
 };
