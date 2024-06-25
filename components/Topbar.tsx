@@ -40,7 +40,7 @@ const Topbar = ({
               "tablet:hidden cursor-pointer transition-transform",
               isSidebarVisible && "rotate-180"
             )}
-            src=" /icons/icon-chevron-down.svg"
+            src="/icons/icon-chevron-down.svg"
             width={15}
             height={15}
             alt=""

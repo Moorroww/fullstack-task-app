@@ -4,7 +4,6 @@ import Image from "next/image";
 import { Switch } from "./ui/switch";
 
 const ThemeAndSidebarSwitch = ({
-  // theme,
   isSidebarVisible,
   setIsSidebarVisible,
 }: {
@@ -14,7 +13,7 @@ const ThemeAndSidebarSwitch = ({
   const { setTheme, theme } = useTheme();
 
   return (
-    <div className="mb-12 self-center gap-2 mt-4 tablet:mt-0">
+    <div className="mb-12 mt-4 tablet:mt-0">
       <div className="px-16 py-4 flex items-center gap-6 bg-background rounded-[6px]">
         <Image
           src="/icons/icon-light-theme.svg"

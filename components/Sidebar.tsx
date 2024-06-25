@@ -6,6 +6,7 @@ import { useTheme } from "next-themes";
 import Image from "next/image";
 import SidebarBoardsList from "./SidebarBoardsList";
 import ThemeAndSidebarSwitch from "./ThemeAndSidebarSwitch";
+import UserTab from "./UserTab";
 
 const Sidebar = ({
   boards,
@@ -28,7 +29,7 @@ const Sidebar = ({
         isSidebarVisible ? "tablet:flex" : "!hidden"
       )}
     >
-      <div className="flex flex-col gap-14">
+      <div className="flex flex-col max-h-[60vh] tablet:max-h-[70%]">
         <div className="hidden tablet:flex">
           <Image
             priority
@@ -40,9 +41,10 @@ const Sidebar = ({
             width="153"
             height="26"
             alt="kanban logo"
-            className="mt-8 ml-8 tablet:mr-[81px] desktop:mr-[113px]"
+            className="mt-8 ml-8 tablet:mr-[81px] desktop:mr-[113px] mb-16"
           />
         </div>
+
         <SidebarBoardsList
           boards={boards}
           setSelectedBoard={setSelectedBoard}
@@ -50,10 +52,13 @@ const Sidebar = ({
         />
       </div>
 
-      <ThemeAndSidebarSwitch
-        isSidebarVisible={isSidebarVisible}
-        setIsSidebarVisible={setIsSidebarVisible}
-      />
+      <div className="flex flex-col tablet:gap-4 self-center mt-4">
+        <UserTab />
+        <ThemeAndSidebarSwitch
+          isSidebarVisible={isSidebarVisible}
+          setIsSidebarVisible={setIsSidebarVisible}
+        />
+      </div>
     </aside>
   );
 };

@@ -7,11 +7,11 @@ const SidebarBoardsList = ({
   selectedBoard,
 }: SidebarBoardsListType) => {
   return (
-    <div className="mt-4 tablet:mt-0">
+    <div className="mt-4 tablet:mt-0 h-[70%]">
       <p className="pl-8 text-kbMediumGrey mb-5">
         All boards ({boards.length})
       </p>
-      <ul className="flex flex-col">
+      <ul className="flex flex-col h-full overflow-y-auto max-h-[50vh] tablet:max-h-[100%]">
         {boards.map(({ boardName, boardID }) => {
           return (
             <li

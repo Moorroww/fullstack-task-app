@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
+import { Toaster } from "@/components/ui/sonner";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -23,6 +24,17 @@ export default function RootLayout({
       <body className={plusJakartaSans.className}>
         <ThemeProvider attribute="class" defaultTheme="dark">
           {children}
+
+          <Toaster
+            position="bottom-center"
+            closeButton
+            toastOptions={{
+              unstyled: false,
+              classNames: {
+                error: "group-[.toaster]:bg-red-400",
+              },
+            }}
+          />
         </ThemeProvider>
       </body>
     </html>

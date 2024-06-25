@@ -1,5 +1,6 @@
 import { z } from "zod";
-import { Client, Account, ID } from "appwrite";
+import { ID } from "appwrite";
+import { account } from "@/lib/appwrite";
 import { redirectSignIn, redirectHome } from "@/actions/actions.redirect";
 import { toast } from "sonner";
 
@@ -31,12 +32,6 @@ export const createNewUser = async (
   password: string,
   name: string
 ) => {
-  const client = new Client()
-    .setEndpoint(`${process.env.NEXT_PUBLIC_APP_LOCAL_ENDPOINT}`)
-    .setProject(`${process.env.NEXT_PUBLIC_APP_PROJECT_ID}`);
-
-  const account = new Account(client);
-
   if (name === "") name = email.split("@")[0];
 
   const promise = new Promise((resolve) => {
@@ -60,12 +55,6 @@ export const createNewUser = async (
 };
 
 export const loginUser = async (email: string, password: string) => {
-  const client = new Client()
-    .setEndpoint(`${process.env.NEXT_PUBLIC_APP_LOCAL_ENDPOINT}`)
-    .setProject(`${process.env.NEXT_PUBLIC_APP_PROJECT_ID}`);
-
-  const account = new Account(client);
-
   const promise = new Promise((resolve) => {
     resolve(account.createEmailPasswordSession(email, password));
   });
@@ -84,6 +73,25 @@ export const loginUser = async (email: string, password: string) => {
           ? "Failed to connect to the website. Check your internet connection. The service may be offline."
           : data.message
       }`;
+    },
+  });
+};
+
+export const logoutUser = async () => {
+  const promise = new Promise((resolve) => {
+    resolve(account.deleteSession("current"));
+  });
+
+  toast.promise(promise, {
+    loading: "Logging out...",
+    success: (data) => {
+      setTimeout(() => {
+        redirectSignIn();
+      }, 0);
+      return `Logged out successfully!`;
+    },
+    error: (data) => {
+      return `${data.message}`;
     },
   });
 };
