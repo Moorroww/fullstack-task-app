@@ -1,14 +1,10 @@
+import { useSidebar } from "@/context/sidebarContext";
 import { cn } from "@/lib/utils";
-import Image from "next/image";
-import React from "react";
 
-const ShowSidebarButton = ({
-  isSidebarVisible,
-  setIsSidebarVisible,
-}: {
-  isSidebarVisible: boolean;
-  setIsSidebarVisible: React.Dispatch<React.SetStateAction<boolean>>;
-}) => {
+import Image from "next/image";
+
+const ShowSidebarButton = () => {
+  const { isSidebarVisible, setIsSidebarVisible } = useSidebar();
   return (
     <button
       className={cn(

@@ -1,23 +1,14 @@
-"use client";
-
-import { useTheme } from "next-themes";
 import { useState } from "react";
-import Image from "next/image";
-import { Button } from "@/components/ui/button";
+import { useSidebar } from "@/context/sidebarContext";
 import { cn } from "@/lib/utils";
+
 import FullSiteCover from "./FullSiteCover";
 import DeleteBoardPopup from "./DeleteBoardPopup";
+import Image from "next/image";
+import { Button } from "@/components/ui/button";
 
-const Topbar = ({
-  selectedBoard,
-  isSidebarVisible,
-  setIsSidebarVisible,
-}: {
-  selectedBoard: string;
-  isSidebarVisible: boolean;
-  setIsSidebarVisible: React.Dispatch<React.SetStateAction<boolean>>;
-}) => {
-  const { theme } = useTheme();
+const Topbar = () => {
+  const { selectedBoard, isSidebarVisible, setIsSidebarVisible } = useSidebar();
 
   const [boardOptionsVisible, setBoardOptionsVisible] =
     useState<boolean>(false);

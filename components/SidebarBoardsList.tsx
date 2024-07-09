@@ -1,11 +1,16 @@
 import { cn } from "@/lib/utils";
+import { useSidebar } from "@/context/sidebarContext";
+
 import BoardIcon from "@/public/icons/BoardIcon";
 
-const SidebarBoardsList = ({
-  boards = [],
-  setSelectedBoard,
-  selectedBoard,
-}: SidebarBoardsListType) => {
+const SidebarBoardsList = () => {
+  const {
+    boards,
+    selectedBoard,
+    setSelectedBoard,
+    setIsSidebarVisible,
+    setIsCreateBoardPopupVisible,
+  } = useSidebar();
   return (
     <div className="mt-4 tablet:mt-0 h-[70%]">
       <p className="pl-8 text-kbMediumGrey mb-5">
@@ -32,7 +37,15 @@ const SidebarBoardsList = ({
         })}
         <li className="heading-m text-kbPurpleMain flex items-center gap-4 py-4 pl-8 mr-6 cursor-pointer">
           <BoardIcon fill="#635fc7" />
-          <span className=" text-kbPurpleMain">+ Create New Board</span>
+          <span
+            className=" text-kbPurpleMain"
+            onClick={() => {
+              setIsCreateBoardPopupVisible(true);
+              window.innerWidth < 768 && setIsSidebarVisible(false);
+            }}
+          >
+            + Create New Board
+          </span>
         </li>
       </ul>
     </div>

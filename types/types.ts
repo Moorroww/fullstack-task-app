@@ -16,8 +16,13 @@ type FormInputFieldProps = {
   method: (e: string) => void;
 };
 
-type userProps = {
+type User = {
   id: string;
   name: string;
   email: string;
+};
+
+type Column = {
+  columnName: string;
+  id: string;
 };

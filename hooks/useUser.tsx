@@ -3,7 +3,7 @@ import { account } from "../lib/appwrite";
 import { useRouter } from "next/navigation";
 
 const useUser = () => {
-  const [user, setUser] = useState<userProps | undefined>(undefined);
+  const [user, setUser] = useState<User | undefined>(undefined);
   const router = useRouter();
 
   const fetchUser = async () => {

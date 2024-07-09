@@ -1,17 +1,15 @@
-"use client";
-import React from "react";
+import { cn } from "@/lib/utils";
+import { useSidebar } from "@/context/sidebarContext";
 
-const MobileSidebarCover = ({
-  isSidebarVisible,
-  setIsSidebarVisible,
-}: {
-  isSidebarVisible: boolean;
-  setIsSidebarVisible: React.Dispatch<React.SetStateAction<boolean>>;
-}) => {
+const MobileSidebarCover = () => {
+  const { isSidebarVisible, setIsSidebarVisible } = useSidebar();
   return (
     <div
       onClick={() => setIsSidebarVisible(!isSidebarVisible)}
-      className="tablet:hidden absolute top-[58.5px] left-0 w-screen h-full bg-black/50"
+      className={cn(
+        "tablet:hidden absolute top-[58.5px] left-0 w-screen h-full bg-black/50",
+        isSidebarVisible ? "flex" : "hidden"
+      )}
     ></div>
   );
 };

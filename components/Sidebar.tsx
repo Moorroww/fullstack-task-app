@@ -2,25 +2,15 @@
 
 import { cn } from "@/lib/utils";
 import { useTheme } from "next-themes";
+import { useSidebar } from "@/context/sidebarContext";
 
 import Image from "next/image";
 import SidebarBoardsList from "./SidebarBoardsList";
 import ThemeAndSidebarSwitch from "./ThemeAndSidebarSwitch";
 import UserTab from "./UserTab";
 
-const Sidebar = ({
-  boards,
-  isSidebarVisible,
-  setIsSidebarVisible,
-  setSelectedBoard,
-  selectedBoard,
-}: {
-  boards: boardType[];
-  isSidebarVisible: boolean;
-  setIsSidebarVisible: React.Dispatch<React.SetStateAction<boolean>>;
-  setSelectedBoard: React.Dispatch<React.SetStateAction<string>>;
-  selectedBoard: string;
-}) => {
+const Sidebar = () => {
+  const { isSidebarVisible } = useSidebar();
   const { theme } = useTheme();
   return (
     <aside
@@ -45,19 +35,12 @@ const Sidebar = ({
           />
         </div>
 
-        <SidebarBoardsList
-          boards={boards}
-          setSelectedBoard={setSelectedBoard}
-          selectedBoard={selectedBoard}
-        />
+        <SidebarBoardsList />
       </div>
 
       <div className="flex flex-col tablet:gap-4 self-center mt-4">
         <UserTab />
-        <ThemeAndSidebarSwitch
-          isSidebarVisible={isSidebarVisible}
-          setIsSidebarVisible={setIsSidebarVisible}
-        />
+        <ThemeAndSidebarSwitch />
       </div>
     </aside>
   );

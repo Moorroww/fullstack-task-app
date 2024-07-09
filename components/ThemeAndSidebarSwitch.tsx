@@ -1,15 +1,11 @@
 import { useTheme } from "next-themes";
+import { useSidebar } from "@/context/sidebarContext";
 
-import Image from "next/image";
 import { Switch } from "./ui/switch";
+import Image from "next/image";
 
-const ThemeAndSidebarSwitch = ({
-  isSidebarVisible,
-  setIsSidebarVisible,
-}: {
-  isSidebarVisible: boolean;
-  setIsSidebarVisible: React.Dispatch<React.SetStateAction<boolean>>;
-}) => {
+const ThemeAndSidebarSwitch = () => {
+  const { isSidebarVisible, setIsSidebarVisible } = useSidebar();
   const { setTheme, theme } = useTheme();
 
   return (
