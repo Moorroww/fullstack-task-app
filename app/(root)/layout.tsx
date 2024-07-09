@@ -6,8 +6,10 @@ import MobileSidebarCover from "@/components/MobileSidebarCover";
 import ShowSidebarButton from "@/components/ShowSidebarButton";
 import Sidebar from "@/components/Sidebar";
 import Topbar from "@/components/Topbar";
+import useAuth from "@/hooks/useAuth";
 
 const HomeLayout = ({ children }: { children: React.ReactNode }) => {
+  useAuth();
   const [isSidebarVisible, setIsSidebarVisible] = useState<boolean>(true);
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);

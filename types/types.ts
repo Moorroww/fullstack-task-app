@@ -15,3 +15,9 @@ type FormInputFieldProps = {
   placeholder?: string;
   method: (e: string) => void;
 };
+
+type userProps = {
+  id: string;
+  name: string;
+  email: string;
+};
