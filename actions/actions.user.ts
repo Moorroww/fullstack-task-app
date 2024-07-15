@@ -1,8 +1,12 @@
 import { z } from "zod";
 import { ID } from "appwrite";
-import { account, databases } from "@/lib/appwrite";
+import { account, databases, users } from "@/lib/appwrite";
 import { redirectSignIn, redirectHome } from "@/actions/actions.redirect";
 import { toast } from "sonner";
+
+const DATABASE_ID = `${process.env.NEXT_PUBLIC_APP_DB_ID}`;
+const USERS_COLLECTION_ID = `${process.env.NEXT_PUBLIC_APP_DB_USERS_ID}`;
+const BOARDS_COLLECTION_ID = `${process.env.NEXT_PUBLIC_APP_DB_BOARDS_ID}`;
 
 export const SignupSchema = z.object({
   email: z.string().email({ message: "Invalid email" }),
@@ -54,12 +58,10 @@ export const createNewUser = async (
   toast.promise(promise, {
     loading: "Creating account...",
     success: (data) => {
-      setTimeout(() => {
-        redirectSignIn();
-      }, 4000);
+      redirectSignIn();
       return `${
         name == "" ? email.split("@")[0] : name
-      }, your account has been created successfully! Redirecting to log-in page in 3 seconds...`;
+      }, your account has been created successfully! Please sign-in.`;
     },
     error: (data) => {
       return `${data.message}`;
@@ -75,10 +77,8 @@ export const loginUser = async (email: string, password: string) => {
   toast.promise(promise, {
     loading: "Logging in...",
     success: (data) => {
-      setTimeout(() => {
-        redirectHome();
-      }, 4000);
-      return `Logged in successfully! Redirecting to your boards in 3 seconds...`;
+      redirectHome();
+      return `Logged in successfully!`;
     },
     error: (data) => {
       return `${
@@ -107,4 +107,37 @@ export const logoutUser = async () => {
       return `${data.message}`;
     },
   });
+};
+
+export const deleteAccount = async () => {
+  const user = await account.get();
+
+  const userBoards = await databases.listDocuments(
+    DATABASE_ID,
+    BOARDS_COLLECTION_ID
+  );
+
+  try {
+    userBoards.documents.map(
+      async (doc) =>
+        await databases.deleteDocument(
+          DATABASE_ID,
+          BOARDS_COLLECTION_ID,
+          `${doc.$id}`
+        )
+    );
+
+    await databases.deleteDocument(
+      DATABASE_ID,
+      USERS_COLLECTION_ID,
+      `${user.$id}`
+    );
+
+    await users.delete(user.$id);
+
+    toast.success("Account deleted successfully. This action is irreversible.");
+    redirectSignIn();
+  } catch (error) {
+    console.error(error);
+  }
 };

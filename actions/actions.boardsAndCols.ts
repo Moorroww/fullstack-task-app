@@ -65,7 +65,6 @@ export const getUserBoards = async () => {
       boardID: doc.$id,
     }));
 
-    console.log(boards);
     return boards;
   } catch (error) {
     console.log(error);

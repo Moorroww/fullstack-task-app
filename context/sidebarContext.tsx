@@ -7,6 +7,8 @@ interface SidebarContextType {
   setSelectedBoard: React.Dispatch<React.SetStateAction<string>>;
   isCreateBoardPopupVisible: boolean;
   setIsCreateBoardPopupVisible: React.Dispatch<React.SetStateAction<boolean>>;
+  isDeleteAccountPopupOpen: boolean;
+  setIsDeleteAccountPopupOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const SidebarContext = createContext<SidebarContextType | undefined>(undefined);
@@ -15,6 +17,8 @@ export const SidebarProvider = ({ children }: { children: ReactNode }) => {
   const [isSidebarVisible, setIsSidebarVisible] = useState<boolean>(true);
   const [selectedBoard, setSelectedBoard] = useState<string>("");
   const [isCreateBoardPopupVisible, setIsCreateBoardPopupVisible] =
+    useState<boolean>(false);
+  const [isDeleteAccountPopupOpen, setIsDeleteAccountPopupOpen] =
     useState<boolean>(false);
 
   return (
@@ -26,6 +30,8 @@ export const SidebarProvider = ({ children }: { children: ReactNode }) => {
         setSelectedBoard,
         isCreateBoardPopupVisible,
         setIsCreateBoardPopupVisible,
+        isDeleteAccountPopupOpen,
+        setIsDeleteAccountPopupOpen,
       }}
     >
       {children}
