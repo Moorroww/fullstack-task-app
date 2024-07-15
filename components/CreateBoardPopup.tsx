@@ -19,6 +19,15 @@ const CreateBoardPopup = () => {
   const [columns, setColumns] = useState([{ columnName: "", id: ID.unique() }]);
   const [boardName, setBoardName] = useState("");
 
+  const handleBoardCreate = async (e: React.FormEvent<HTMLFormElement>) => {
+    try {
+      await createNewBoard(boardName);
+      setIsCreateBoardPopupVisible(false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div
       className={cn(
@@ -27,8 +36,9 @@ const CreateBoardPopup = () => {
       )}
       onClick={() => setIsCreateBoardPopupVisible(!isCreateBoardPopupVisible)}
     >
-      <div
+      <form
         className="w-[95%] max-w-[480px] mx-auto p-6 bg-foreground rounded-[6px] flex flex-col gap-6"
+        onSubmit={(e) => handleBoardCreate(e)}
         onClick={(e) => e.stopPropagation()}
       >
         <div className="">
@@ -78,13 +88,10 @@ const CreateBoardPopup = () => {
           </Button>
         </div>
 
-        <Button
-          className="body-l"
-          onClick={() => createNewBoard(columns, boardName)}
-        >
+        <Button type="submit" className="body-l">
           Create New Board
         </Button>
-      </div>
+      </form>
     </div>
   );
 };

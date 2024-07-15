@@ -1,4 +1,3 @@
-// context/SidebarContext.tsx
 import { createContext, useContext, useState, ReactNode } from "react";
 
 interface SidebarContextType {
@@ -8,7 +7,6 @@ interface SidebarContextType {
   setSelectedBoard: React.Dispatch<React.SetStateAction<string>>;
   isCreateBoardPopupVisible: boolean;
   setIsCreateBoardPopupVisible: React.Dispatch<React.SetStateAction<boolean>>;
-  boards: boardType[];
 }
 
 const SidebarContext = createContext<SidebarContextType | undefined>(undefined);
@@ -19,12 +17,6 @@ export const SidebarProvider = ({ children }: { children: ReactNode }) => {
   const [isCreateBoardPopupVisible, setIsCreateBoardPopupVisible] =
     useState<boolean>(false);
 
-  const boards: boardType[] = [
-    { boardName: "Platform Launch", boardID: "1s78293xydn" },
-    { boardName: "Marketing plan", boardID: "2xny3d927h" },
-    { boardName: "Roadmap", boardID: "3xndm93d7y2" },
-  ];
-
   return (
     <SidebarContext.Provider
       value={{
@@ -32,7 +24,6 @@ export const SidebarProvider = ({ children }: { children: ReactNode }) => {
         setIsSidebarVisible,
         selectedBoard,
         setSelectedBoard,
-        boards,
         isCreateBoardPopupVisible,
         setIsCreateBoardPopupVisible,
       }}

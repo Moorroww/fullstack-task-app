@@ -2,15 +2,18 @@ import { cn } from "@/lib/utils";
 import { useSidebar } from "@/context/sidebarContext";
 
 import BoardIcon from "@/public/icons/BoardIcon";
+import useBoards from "@/hooks/useBoards";
 
 const SidebarBoardsList = () => {
   const {
-    boards,
     selectedBoard,
     setSelectedBoard,
     setIsSidebarVisible,
     setIsCreateBoardPopupVisible,
   } = useSidebar();
+
+  const { boards } = useBoards();
+
   return (
     <div className="mt-4 tablet:mt-0 h-[70%]">
       <p className="pl-8 text-kbMediumGrey mb-5">

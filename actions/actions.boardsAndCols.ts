@@ -1,6 +1,13 @@
-import { ID } from "appwrite";
+import { account, databases } from "@/lib/appwrite";
+import { ID, Query } from "appwrite";
 
 type SetColumns = React.Dispatch<React.SetStateAction<Column[]>>;
+
+const DATABASE_ID = `${process.env.NEXT_PUBLIC_APP_DB_ID}`;
+const BOARDS_COLLECTION_ID = `${process.env.NEXT_PUBLIC_APP_DB_BOARDS_ID}`;
+const COLUMNS_COLLECTION_ID = `${process.env.NEXT_PUBLIC_APP_DB_COLUMNS_ID}`;
+const TASKS_COLLECTION_ID = `${process.env.NEXT_PUBLIC_APP_DB_TASKS_ID}`;
+const SUBTASKS_COLLECTION_ID = `${process.env.NEXT_PUBLIC_APP_DB_SUBTASKS_ID}`;
 
 export const addNewColumn = (
   columns: Column[],
@@ -31,6 +38,36 @@ export const handleColumnNameChange = (
   );
 };
 
-export const createNewBoard = (columns: Column[], boardName: string): void => {
-  // create new board logic
+export const createNewBoard = async (boardName: string) => {
+  try {
+    await databases.createDocument(
+      DATABASE_ID,
+      BOARDS_COLLECTION_ID,
+      ID.unique(),
+      { name: boardName, userID: (await account.get()).$id }
+    );
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getUserBoards = async () => {
+  try {
+    const user = await account.get();
+    const response = await databases.listDocuments(
+      DATABASE_ID,
+      BOARDS_COLLECTION_ID,
+      [Query.equal("userID", user.$id)]
+    );
+
+    const boards = response.documents.map((doc) => ({
+      boardName: doc.name,
+      boardID: doc.$id,
+    }));
+
+    console.log(boards);
+    return boards;
+  } catch (error) {
+    console.log(error);
+  }
 };

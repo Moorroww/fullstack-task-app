@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { ID } from "appwrite";
-import { account } from "@/lib/appwrite";
+import { account, databases } from "@/lib/appwrite";
 import { redirectSignIn, redirectHome } from "@/actions/actions.redirect";
 import { toast } from "sonner";
 
@@ -33,9 +33,22 @@ export const createNewUser = async (
   name: string
 ) => {
   if (name === "") name = email.split("@")[0];
+  const DATABASE_ID = `${process.env.NEXT_PUBLIC_APP_DB_ID}`;
+  const USERS_COLLECTION_ID = `${process.env.NEXT_PUBLIC_APP_DB_USERS_ID}`;
 
-  const promise = new Promise((resolve) => {
-    resolve(account.create(ID.unique(), email, password, name));
+  const newID = ID.unique();
+
+  const promise = new Promise((resolve, reject) => {
+    Promise.all([
+      account.create(newID, email, password, name),
+      databases.createDocument(DATABASE_ID, USERS_COLLECTION_ID, newID, {
+        name: name,
+        email: email,
+        createdAt: new Date().toISOString(),
+      }),
+    ])
+      .then((results) => resolve(results))
+      .catch((error) => reject(error));
   });
 
   toast.promise(promise, {
