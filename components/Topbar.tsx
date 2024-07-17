@@ -8,7 +8,12 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 
 const Topbar = () => {
-  const { selectedBoard, isSidebarVisible, setIsSidebarVisible } = useSidebar();
+  const {
+    selectedBoard,
+    isSidebarVisible,
+    setIsSidebarVisible,
+    setIsAddColumnPopupVisible,
+  } = useSidebar();
 
   const [boardOptionsVisible, setBoardOptionsVisible] =
     useState<boolean>(false);
@@ -24,7 +29,11 @@ const Topbar = () => {
             height={25}
             alt="kanban logo"
           />
-          <p className="heading-xl">{selectedBoard}</p>
+          <p className="heading-xl">
+            {selectedBoard.boardName.length < 15
+              ? selectedBoard.boardName
+              : selectedBoard.boardName.slice(0, 15) + "..."}
+          </p>
 
           <Image
             className={cn(
@@ -40,8 +49,9 @@ const Topbar = () => {
         </div>
         <div className="flex items-center gap-6">
           <Button
-            disabled={selectedBoard == ""}
+            disabled={selectedBoard.boardName == ""}
             className="flex gap-1 items-center"
+            onClick={() => setIsAddColumnPopupVisible(true)}
           >
             <Image
               src="/icons/icon-add-task-mobile.svg"
@@ -60,7 +70,11 @@ const Topbar = () => {
             width={5}
             height={20}
             alt=""
-            onClick={() => setBoardOptionsVisible(!boardOptionsVisible)}
+            onClick={() => {
+              selectedBoard.boardName == ""
+                ? null
+                : setBoardOptionsVisible(!boardOptionsVisible);
+            }}
           />
         </div>
       </div>
@@ -74,7 +88,6 @@ const Topbar = () => {
           <DeleteBoardPopup
             boardOptionsVisible={boardOptionsVisible}
             setBoardOptionsVisible={setBoardOptionsVisible}
-            selectedBoard={selectedBoard}
           />
         </>
       )}

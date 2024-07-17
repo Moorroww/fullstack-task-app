@@ -1,8 +1,8 @@
 import { cn } from "@/lib/utils";
 import { useSidebar } from "@/context/sidebarContext";
+import useBoards from "@/hooks/useBoards";
 
 import BoardIcon from "@/public/icons/BoardIcon";
-import useBoards from "@/hooks/useBoards";
 
 const SidebarBoardsList = () => {
   const {
@@ -23,18 +23,26 @@ const SidebarBoardsList = () => {
         {boards.map(({ boardName, boardID }) => {
           return (
             <li
-              onClick={() => setSelectedBoard(boardName)}
+              onClick={() =>
+                setSelectedBoard({ boardName: boardName, boardID: boardID })
+              }
               className={cn(
-                "heading-m text-kbMediumGrey flex items-center gap-4 py-4 pl-8 pr-6 tablet:pr-0 mr-6 cursor-pointer",
-                boardName == selectedBoard &&
+                "text-kbMediumGrey flex items-center gap-4 py-4 pl-8 pr-6 tablet:pr-0 mr-6 cursor-pointer",
+                boardName == selectedBoard.boardName &&
                   "bg-kbPurpleMain rounded-r-full text-white"
               )}
               key={boardID}
             >
               <BoardIcon
-                fill={boardName == selectedBoard ? "#FFFFFF" : "#828FA3"}
+                fill={
+                  boardName == selectedBoard.boardName ? "#FFFFFF" : "#828FA3"
+                }
               />
-              {boardName}
+              <span className="text-inherit heading-m max-w-[15ch] overflow-hidden">
+                {boardName.length < 15
+                  ? boardName
+                  : boardName.slice(0, 15) + "..."}
+              </span>
             </li>
           );
         })}

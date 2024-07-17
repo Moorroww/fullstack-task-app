@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { useSidebar } from "@/context/sidebarContext";
 import { cn } from "@/lib/utils";
-import { ID } from "appwrite"; //temp id generation
 import {
   handleColumnNameChange,
-  deleteField,
+  deleteColumnField,
   addNewColumn,
   createNewBoard,
 } from "@/actions/actions.boardsAndCols";
@@ -16,12 +15,12 @@ import { Button } from "./ui/button";
 const CreateBoardPopup = () => {
   const { isCreateBoardPopupVisible, setIsCreateBoardPopupVisible } =
     useSidebar();
-  const [columns, setColumns] = useState([{ columnName: "", id: ID.unique() }]);
+  const [columns, setColumns] = useState<Column[]>([]);
   const [boardName, setBoardName] = useState("");
 
-  const handleBoardCreate = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleBoardCreate = async () => {
     try {
-      await createNewBoard(boardName);
+      await createNewBoard(boardName, columns);
       setIsCreateBoardPopupVisible(false);
     } catch (error) {
       console.error(error);
@@ -38,7 +37,7 @@ const CreateBoardPopup = () => {
     >
       <form
         className="w-[95%] max-w-[480px] mx-auto p-6 bg-foreground rounded-[6px] flex flex-col gap-6"
-        onSubmit={(e) => handleBoardCreate(e)}
+        onSubmit={handleBoardCreate}
         onClick={(e) => e.stopPropagation()}
       >
         <div className="">
@@ -74,7 +73,9 @@ const CreateBoardPopup = () => {
                   alt="icon-cross"
                   width={14}
                   height={14}
-                  onClick={() => deleteField(column.id, columns, setColumns)}
+                  onClick={() =>
+                    deleteColumnField(column.id, columns, setColumns)
+                  }
                 />
               </li>
             ))}
@@ -82,6 +83,7 @@ const CreateBoardPopup = () => {
           <Button
             variant="secondary"
             className="mt-3"
+            type="button"
             onClick={() => addNewColumn(columns, setColumns)}
           >
             + Add New Column

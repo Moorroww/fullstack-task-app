@@ -11,6 +11,7 @@ import MobileSidebarCover from "@/components/MobileSidebarCover";
 import ShowSidebarButton from "@/components/ShowSidebarButton";
 import CreateBoardPopup from "@/components/CreateBoardPopup";
 import DeleteAccountPopup from "@/components/DeleteAccountPopup";
+import AddColumnPopup from "@/components/AddColumnPopup";
 
 const HomeLayout = ({ children }: { children: React.ReactNode }) => {
   useAuth();
@@ -36,6 +37,7 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
         <ShowSidebarButton />
         <CreateBoardPopup />
         <DeleteAccountPopup />
+        <AddColumnPopup />
       </main>
     </SidebarProvider>
   );

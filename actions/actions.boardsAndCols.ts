@@ -17,7 +17,7 @@ export const addNewColumn = (
   setColumns([...columns, { columnName: "", id: newId }]);
 };
 
-export const deleteField = (
+export const deleteColumnField = (
   id: string,
   columns: Column[],
   setColumns: SetColumns
@@ -38,14 +38,27 @@ export const handleColumnNameChange = (
   );
 };
 
-export const createNewBoard = async (boardName: string) => {
+export const createNewBoard = async (boardName: string, columns: Column[]) => {
+  const newBoardID = ID.unique();
+
   try {
     await databases.createDocument(
       DATABASE_ID,
       BOARDS_COLLECTION_ID,
-      ID.unique(),
+      newBoardID,
       { name: boardName, userID: (await account.get()).$id }
     );
+
+    if (columns.length !== 0) {
+      columns.forEach(async (column) => {
+        await databases.createDocument(
+          DATABASE_ID,
+          COLUMNS_COLLECTION_ID,
+          ID.unique(),
+          { name: column.columnName, boardID: newBoardID }
+        );
+      });
+    }
   } catch (error) {
     console.log(error);
   }
@@ -66,6 +79,48 @@ export const getUserBoards = async () => {
     }));
 
     return boards;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getBoardColumns = async (boardID: string) => {
+  try {
+    const response = await databases.listDocuments(
+      DATABASE_ID,
+      COLUMNS_COLLECTION_ID,
+      [Query.equal("boardID", boardID)]
+    );
+
+    const columns: Column[] = response.documents.map((doc) => ({
+      columnName: doc.name,
+      id: doc.$id,
+    }));
+
+    return columns;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const deleteBoard = async (boardID: string) => {
+  try {
+    await databases.deleteDocument(DATABASE_ID, BOARDS_COLLECTION_ID, boardID);
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const addColumn = async (boardID: string, columnName: string) => {
+  try {
+    await databases.createDocument(
+      DATABASE_ID,
+      COLUMNS_COLLECTION_ID,
+      ID.unique(),
+      {
+        name: columnName,
+        boardID: boardID,
+      }
+    );
   } catch (error) {
     console.log(error);
   }
