@@ -1,3 +1,7 @@
+# ❗️❗️❗️Under construction❗❗❗
+
+This application is under development. However, I decided to add it to public view at this stage.
+
 # Task Management App Solution
 
 This is a solution to the [Task Management App challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/kanban-task-management-web-app-wgQLt-HlbB).
@@ -24,7 +28,7 @@ Users should be able to:
 - Mark subtasks as complete and move tasks between columns ✅
 - Hide/show the board sidebar ✅
 - Toggle the theme between light/dark modes ✅
-- **Bonus**: Drag and drop tasks to change their status and reorder them in a column ⛔️
+- **Bonus**: Drag and drop tasks to change their status and reorder them in a column 🟡
 - **Bonus**: Keep track of any changes, even after refreshing the browser ✅
 - **Bonus**: Build this project as a full-stack application ✅
 
