@@ -26,3 +26,11 @@ type Column = {
   columnName: string;
   id: string;
 };
+
+type Task = {
+  id: string;
+  taskTitle: string;
+  taskDescription: string;
+  taskStatus: string;
+  columnID: string;
+};

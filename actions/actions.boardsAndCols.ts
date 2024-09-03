@@ -11,7 +11,7 @@ const SUBTASKS_COLLECTION_ID = `${process.env.NEXT_PUBLIC_APP_DB_SUBTASKS_ID}`;
 
 export const addNewColumn = (
   columns: Column[],
-  setColumns: SetColumns
+  setColumns: SetColumns,
 ): void => {
   const newId = ID.unique();
   setColumns([...columns, { columnName: "", id: newId }]);
@@ -20,7 +20,7 @@ export const addNewColumn = (
 export const deleteColumnField = (
   id: string,
   columns: Column[],
-  setColumns: SetColumns
+  setColumns: SetColumns,
 ): void => {
   setColumns(columns.filter((column) => column.id !== id));
 };
@@ -29,12 +29,12 @@ export const handleColumnNameChange = (
   id: string,
   newName: string,
   columns: Column[],
-  setColumns: SetColumns
+  setColumns: SetColumns,
 ): void => {
   setColumns(
     columns.map((column) =>
-      column.id === id ? { ...column, columnName: newName } : column
-    )
+      column.id === id ? { ...column, columnName: newName } : column,
+    ),
   );
 };
 
@@ -46,7 +46,7 @@ export const createNewBoard = async (boardName: string, columns: Column[]) => {
       DATABASE_ID,
       BOARDS_COLLECTION_ID,
       newBoardID,
-      { name: boardName, userID: (await account.get()).$id }
+      { name: boardName, userID: (await account.get()).$id },
     );
 
     if (columns.length !== 0) {
@@ -55,7 +55,7 @@ export const createNewBoard = async (boardName: string, columns: Column[]) => {
           DATABASE_ID,
           COLUMNS_COLLECTION_ID,
           ID.unique(),
-          { name: column.columnName, boardID: newBoardID }
+          { name: column.columnName, boardID: newBoardID },
         );
       });
     }
@@ -70,7 +70,7 @@ export const getUserBoards = async () => {
     const response = await databases.listDocuments(
       DATABASE_ID,
       BOARDS_COLLECTION_ID,
-      [Query.equal("userID", user.$id)]
+      [Query.equal("userID", user.$id)],
     );
 
     const boards = response.documents.map((doc) => ({
@@ -89,7 +89,7 @@ export const getBoardColumns = async (boardID: string) => {
     const response = await databases.listDocuments(
       DATABASE_ID,
       COLUMNS_COLLECTION_ID,
-      [Query.equal("boardID", boardID)]
+      [Query.equal("boardID", boardID)],
     );
 
     const columns: Column[] = response.documents.map((doc) => ({
@@ -119,8 +119,30 @@ export const addColumn = async (boardID: string, columnName: string) => {
       {
         name: columnName,
         boardID: boardID,
-      }
+      },
     );
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getTasks = async (columnID: string) => {
+  try {
+    const response = await databases.listDocuments(
+      DATABASE_ID,
+      TASKS_COLLECTION_ID,
+      [Query.equal("columnID", columnID)],
+    );
+
+    const tasks: Task[] = response.documents.map((doc) => ({
+      id: doc.$id,
+      taskTitle: doc.title,
+      taskDescription: doc.description,
+      taskStatus: doc.status,
+      columnID: doc.columnID,
+    }));
+
+    return tasks;
   } catch (error) {
     console.log(error);
   }
