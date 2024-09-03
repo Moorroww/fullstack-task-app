@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useQuery } from "react-query";
 import { getBoardColumns } from "@/actions/actions.boardsAndCols";
 import { useSidebar } from "@/context/sidebarContext";
 
@@ -7,36 +7,37 @@ import { Button } from "./ui/button";
 
 const Columns = () => {
   const { selectedBoard, setIsAddColumnPopupVisible } = useSidebar();
-  const [cols, setCols] = useState<Column[]>([]);
 
-  useEffect(() => {
-    const fetchColumns = async () => {
-      const columns = await getBoardColumns(selectedBoard.boardID);
-      setCols(columns || []);
-    };
-
-    fetchColumns();
-  }, [selectedBoard]);
+  const { data: cols = [], refetch } = useQuery(
+    ["columns", selectedBoard.boardID],
+    () => getBoardColumns(selectedBoard.boardID),
+    {
+      enabled: !!selectedBoard.boardID,
+    },
+  );
 
   return (
     <div className="grid">
       {cols.length === 0 ? (
-        <div className="text-center flex flex-col items-center gap-8 place-self-center">
+        <div className="flex flex-col items-center gap-8 place-self-center text-center">
           <p className="heading-l text-kbMediumGrey">
             This board is empty. Create a new column to get started.
           </p>
-          <Button disabled={selectedBoard.boardName == ""}>
+          <Button
+            disabled={selectedBoard.boardName === ""}
+            onClick={() => setIsAddColumnPopupVisible(true)}
+          >
             + Add New Column
           </Button>
         </div>
       ) : (
-        <div className="w-full px-6 pt-6 flex gap-6 overflow-scroll">
+        <div className="flex w-full gap-6 overflow-scroll px-6 pt-6">
           {cols.map((col, index) => (
             <Column key={index} col={col} />
           ))}
 
           <div
-            className="h-[98%] min-w-[280px] flex items-center justify-center bg-foreground/40 rounded-[6px] cursor-pointer"
+            className="flex h-[98%] min-w-[280px] cursor-pointer items-center justify-center rounded-[6px] bg-foreground/40"
             onClick={() => setIsAddColumnPopupVisible(true)}
           >
             <p className="heading-xl text-kbMediumGrey">+New Column</p>

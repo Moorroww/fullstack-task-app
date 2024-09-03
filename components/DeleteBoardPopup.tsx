@@ -16,10 +16,10 @@ const DeleteBoardPopup = ({
       onSubmit={() => {
         deleteBoard(selectedBoard.boardID);
       }}
-      className="absolute w-3/4 max-w-[480px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-foreground p-6 tablet:p-8 rounded-[6px] z-30"
+      className="absolute left-1/2 top-1/2 z-30 w-3/4 max-w-[480px] -translate-x-1/2 -translate-y-1/2 rounded-[6px] bg-foreground p-6 tablet:p-8"
     >
       <h2 className="heading-l text-kbRed">Delete this board?</h2>
-      <p className="text-kbMediumGrey my-6">
+      <p className="my-6 text-kbMediumGrey">
         Are you sure you want to delete the ‘{selectedBoard.boardName}’ board?
         This action will remove all columns and tasks and cannot be reversed.
       </p>
