@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { useSidebar } from "@/context/sidebarContext";
+import { usePopupsStore } from "@/stores/store.popups";
+import { useBoardsStore } from "@/stores/store.boards";
 import { cn } from "@/lib/utils";
 
 import FullSiteCover from "./FullSiteCover";
@@ -8,19 +9,16 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 
 const Topbar = () => {
-  const {
-    selectedBoard,
-    isSidebarVisible,
-    setIsSidebarVisible,
-    setIsAddColumnPopupVisible,
-  } = useSidebar();
+  const { selectedBoard } = useBoardsStore();
+  const { isSidebarVisible, setIsSidebarVisible, setIsAddColumnPopupVisible } =
+    usePopupsStore();
 
   const [boardOptionsVisible, setBoardOptionsVisible] =
     useState<boolean>(false);
 
   return (
-    <header className="w-full bg-foreground flex">
-      <div className="p-4 tablet:p-6 flex items-center justify-between w-full">
+    <header className="flex w-full bg-foreground">
+      <div className="flex w-full items-center justify-between p-4 tablet:p-6">
         <div className="flex items-center gap-4">
           <Image
             className="tablet:hidden"
@@ -37,8 +35,8 @@ const Topbar = () => {
 
           <Image
             className={cn(
-              "tablet:hidden cursor-pointer transition-transform",
-              isSidebarVisible && "rotate-180"
+              "cursor-pointer transition-transform tablet:hidden",
+              isSidebarVisible && "rotate-180",
             )}
             src="/icons/icon-chevron-down.svg"
             width={15}
@@ -49,8 +47,8 @@ const Topbar = () => {
         </div>
         <div className="flex items-center gap-6">
           <Button
-            disabled={selectedBoard.boardName == ""}
-            className="flex gap-1 items-center"
+            disabled={selectedBoard.boardID == ""}
+            className="flex items-center gap-1"
             onClick={() => setIsAddColumnPopupVisible(true)}
           >
             <Image
@@ -59,7 +57,7 @@ const Topbar = () => {
               height={10}
               alt=""
             />
-            <span className="hidden tablet:flex text-white">
+            <span className="hidden text-white tablet:flex">
               Add New Column
             </span>
           </Button>
@@ -71,7 +69,7 @@ const Topbar = () => {
             height={20}
             alt=""
             onClick={() => {
-              selectedBoard.boardName == ""
+              selectedBoard.boardID == ""
                 ? null
                 : setBoardOptionsVisible(!boardOptionsVisible);
             }}

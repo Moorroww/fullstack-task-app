@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useSidebar } from "@/context/sidebarContext";
 import useBoards from "@/hooks/useBoards";
+import { usePopupsStore } from "@/stores/store.popups";
 import {
   handleColumnNameChange,
   deleteColumnField,
@@ -15,7 +15,7 @@ import { Button } from "./ui/button";
 
 const CreateBoardPopup = () => {
   const { isCreateBoardPopupVisible, setIsCreateBoardPopupVisible } =
-    useSidebar();
+    usePopupsStore();
   const { refetch } = useBoards();
   const [columns, setColumns] = useState<Column[]>([]);
   const [boardName, setBoardName] = useState<string>("");

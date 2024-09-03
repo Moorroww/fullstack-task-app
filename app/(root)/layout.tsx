@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
 import useAuth from "@/hooks/useAuth";
 
-import { SidebarProvider } from "@/context/sidebarContext";
 import { QueryClient, QueryClientProvider } from "react-query";
 
 import Topbar from "@/components/Topbar";
@@ -29,20 +28,18 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <SidebarProvider>
-        <main className="flex h-screen w-screen">
-          <Sidebar />
-          <div className="flex flex-grow flex-col">
-            <Topbar />
-            <MobileSidebarCover />
-            <div className="size-full">{children}</div>
-          </div>
-          <ShowSidebarButton />
-          <CreateBoardPopup />
-          <DeleteAccountPopup />
-          <AddColumnPopup />
-        </main>
-      </SidebarProvider>
+      <main className="flex h-screen w-screen">
+        <Sidebar />
+        <div className="flex flex-grow flex-col">
+          <Topbar />
+          <MobileSidebarCover />
+          <div className="size-full">{children}</div>
+        </div>
+        <ShowSidebarButton />
+        <CreateBoardPopup />
+        <DeleteAccountPopup />
+        <AddColumnPopup />
+      </main>
     </QueryClientProvider>
   );
 };

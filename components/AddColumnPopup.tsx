@@ -1,15 +1,17 @@
 import { useState } from "react";
-import { useSidebar } from "@/context/sidebarContext";
 import { useQueryClient } from "react-query";
 import { addColumn } from "@/actions/actions.boardsAndCols";
+import { usePopupsStore } from "@/stores/store.popups";
+import { useBoardsStore } from "@/stores/store.boards";
 import { cn } from "@/lib/utils";
 
 import TextField from "./TextField";
 import { Button } from "./ui/button";
 
 const AddColumnPopup = () => {
-  const { isAddColumnPopupVisible, setIsAddColumnPopupVisible, selectedBoard } =
-    useSidebar();
+  const { selectedBoard } = useBoardsStore();
+  const { isAddColumnPopupVisible, setIsAddColumnPopupVisible } =
+    usePopupsStore();
   const [columnName, setColumnName] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
 

@@ -1,16 +1,16 @@
-import { useSidebar } from "@/context/sidebarContext";
+import { useBoardsStore } from "@/stores/store.boards";
 
 import Columns from "./Columns";
 
 const ColumnsMainSection = () => {
-  const { selectedBoard } = useSidebar();
+  const { selectedBoard } = useBoardsStore();
 
   return (
-    <div className="size-full grid">
-      {selectedBoard.boardName !== "" ? (
+    <div className="grid size-full">
+      {selectedBoard.boardID !== "" ? (
         <Columns />
       ) : (
-        <p className="place-self-center heading-xl text-kbMediumGrey">
+        <p className="heading-xl place-self-center text-kbMediumGrey">
           Select the board to see your columns
         </p>
       )}

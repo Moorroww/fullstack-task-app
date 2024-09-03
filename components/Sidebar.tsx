@@ -1,25 +1,25 @@
 "use client";
 
-import { cn } from "@/lib/utils";
+import { usePopupsStore } from "@/stores/store.popups";
 import { useTheme } from "next-themes";
-import { useSidebar } from "@/context/sidebarContext";
+import { cn } from "@/lib/utils";
 
-import Image from "next/image";
 import SidebarBoardsList from "./SidebarBoardsList";
 import ThemeAndSidebarSwitch from "./ThemeAndSidebarSwitch";
 import UserTab from "./UserTab";
+import Image from "next/image";
 
 const Sidebar = () => {
-  const { isSidebarVisible } = useSidebar();
+  const { isSidebarVisible } = usePopupsStore();
   const { theme } = useTheme();
   return (
     <aside
       className={cn(
-        "absolute tablet:static left-1/2 -translate-x-1/2 tablet:translate-x-0 top-[88px] rounded-lg tablet:rounded-none flex w-[260px] min-w-[260px] desktop:w-[300px] desktop:min-w-[300px] tablet:h-screen  items-start flex-col justify-between bg-foreground pr-3 tablet:border-r-2 border-lines z-10 tablet:z-0",
-        isSidebarVisible ? "tablet:flex" : "!hidden"
+        "absolute left-1/2 top-[88px] z-10 flex w-[260px] min-w-[260px] -translate-x-1/2 flex-col items-start justify-between rounded-lg border-lines bg-foreground pr-3 tablet:static tablet:z-0 tablet:h-screen tablet:translate-x-0 tablet:rounded-none tablet:border-r-2 desktop:w-[300px] desktop:min-w-[300px]",
+        isSidebarVisible ? "tablet:flex" : "!hidden",
       )}
     >
-      <div className="flex flex-col max-h-[60vh] tablet:max-h-[70%]">
+      <div className="flex max-h-[60vh] flex-col tablet:max-h-[70%]">
         <div className="hidden tablet:flex">
           <Image
             priority
@@ -31,14 +31,14 @@ const Sidebar = () => {
             width="153"
             height="26"
             alt="kanban logo"
-            className="mt-8 ml-8 tablet:mr-[81px] desktop:mr-[113px] mb-16"
+            className="mb-16 ml-8 mt-8 tablet:mr-[81px] desktop:mr-[113px]"
           />
         </div>
 
         <SidebarBoardsList />
       </div>
 
-      <div className="flex flex-col tablet:gap-4 self-center mt-4">
+      <div className="mt-4 flex flex-col self-center tablet:gap-4">
         <UserTab />
         <ThemeAndSidebarSwitch />
       </div>

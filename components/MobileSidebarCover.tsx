@@ -1,14 +1,14 @@
+import { usePopupsStore } from "@/stores/store.popups";
 import { cn } from "@/lib/utils";
-import { useSidebar } from "@/context/sidebarContext";
 
 const MobileSidebarCover = () => {
-  const { isSidebarVisible, setIsSidebarVisible } = useSidebar();
+  const { isSidebarVisible, setIsSidebarVisible } = usePopupsStore();
   return (
     <div
       onClick={() => setIsSidebarVisible(!isSidebarVisible)}
       className={cn(
-        "tablet:hidden absolute top-[58.5px] left-0 w-screen h-full bg-black/50",
-        isSidebarVisible ? "flex" : "hidden"
+        "absolute left-0 top-[58.5px] h-full w-screen bg-black/50 tablet:hidden",
+        isSidebarVisible ? "flex" : "hidden",
       )}
     ></div>
   );

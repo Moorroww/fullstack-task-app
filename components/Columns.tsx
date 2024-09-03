@@ -1,12 +1,14 @@
 import { useQuery } from "react-query";
 import { getBoardColumns } from "@/actions/actions.boardsAndCols";
-import { useSidebar } from "@/context/sidebarContext";
+import { usePopupsStore } from "@/stores/store.popups";
+import { useBoardsStore } from "@/stores/store.boards";
 
 import Column from "./Column";
 import { Button } from "./ui/button";
 
 const Columns = () => {
-  const { selectedBoard, setIsAddColumnPopupVisible } = useSidebar();
+  const { selectedBoard } = useBoardsStore();
+  const { setIsAddColumnPopupVisible } = usePopupsStore();
 
   const { data: cols = [], refetch } = useQuery(
     ["columns", selectedBoard.boardID],
@@ -24,7 +26,7 @@ const Columns = () => {
             This board is empty. Create a new column to get started.
           </p>
           <Button
-            disabled={selectedBoard.boardName === ""}
+            disabled={selectedBoard.boardID === ""}
             onClick={() => setIsAddColumnPopupVisible(true)}
           >
             + Add New Column

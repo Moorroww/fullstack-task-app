@@ -1,15 +1,15 @@
-import { useSidebar } from "@/context/sidebarContext";
+import { usePopupsStore } from "@/stores/store.popups";
 import { cn } from "@/lib/utils";
 
 import Image from "next/image";
 
 const ShowSidebarButton = () => {
-  const { isSidebarVisible, setIsSidebarVisible } = useSidebar();
+  const { isSidebarVisible, setIsSidebarVisible } = usePopupsStore();
   return (
     <button
       className={cn(
-        "hidden  absolute p-5 rounded-r-full bg-kbPurpleMain bottom-8 left-0",
-        !isSidebarVisible && "tablet:flex"
+        "absolute bottom-8 left-0 hidden rounded-r-full bg-kbPurpleMain p-5",
+        !isSidebarVisible && "tablet:flex",
       )}
       onClick={() => setIsSidebarVisible(!isSidebarVisible)}
     >

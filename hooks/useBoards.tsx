@@ -6,7 +6,7 @@ const useBoards = () => {
     "boards",
     async () => {
       return await getUserBoards();
-    }
+    },
   );
 
   return { boards: data || [], isLoading, isError, error, refetch };

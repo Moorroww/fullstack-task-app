@@ -1,16 +1,15 @@
-import { useSidebar } from "@/context/sidebarContext";
 import useBoards from "@/hooks/useBoards";
+import { usePopupsStore } from "@/stores/store.popups";
+import { useBoardsStore } from "@/stores/store.boards";
 import { cn } from "@/lib/utils";
 
 import BoardIcon from "@/public/icons/BoardIcon";
 
 const SidebarBoardsList = () => {
-  const {
-    selectedBoard,
-    setSelectedBoard,
-    setIsSidebarVisible,
-    setIsCreateBoardPopupVisible,
-  } = useSidebar();
+  const { selectedBoard, setSelectedBoard } = useBoardsStore();
+
+  const { setIsSidebarVisible, setIsCreateBoardPopupVisible } =
+    usePopupsStore();
 
   const { boards, isLoading, isError } = useBoards();
 
@@ -42,16 +41,14 @@ const SidebarBoardsList = () => {
                     }
                     className={cn(
                       "mr-6 flex cursor-pointer items-center gap-4 py-4 pl-8 pr-6 text-kbMediumGrey tablet:pr-0",
-                      boardName == selectedBoard.boardName &&
+                      boardID == selectedBoard.boardID &&
                         "rounded-r-full bg-kbPurpleMain text-white",
                     )}
                     key={boardID}
                   >
                     <BoardIcon
                       fill={
-                        boardName == selectedBoard.boardName
-                          ? "#FFFFFF"
-                          : "#828FA3"
+                        boardID == selectedBoard.boardID ? "#FFFFFF" : "#828FA3"
                       }
                     />
                     <span className="heading-m max-w-[15ch] overflow-hidden text-inherit">
