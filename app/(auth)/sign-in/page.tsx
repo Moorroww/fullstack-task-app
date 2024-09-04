@@ -4,7 +4,7 @@ import { useState } from "react";
 import { redirectSignUp } from "@/actions/actions.redirect";
 import { validateSignup, loginUser } from "@/actions/actions.user";
 
-import FormInputField from "@/components/FormInputField";
+import FormInputField from "@/components/ui/FormInputField";
 import { Button } from "@/components/ui/button";
 
 const SignInPage = () => {
@@ -21,7 +21,7 @@ const SignInPage = () => {
   };
 
   return (
-    <div className="flex flex-col gap-8 w-full max-w-[480px] px-6">
+    <div className="flex w-full max-w-[480px] flex-col gap-8 px-6">
       <form
         onSubmit={(e) => handleFormValidation(e)}
         className="flex flex-col gap-3"
@@ -31,11 +31,13 @@ const SignInPage = () => {
           type="text"
           placeholder="e.g. kanban.user.com"
           method={setEmail}
+          value={email}
         />
         <FormInputField
           fieldName="Password"
           type="password"
           method={setPassword}
+          value={password}
         />
 
         <Button className="mt-8" type="submit">
@@ -45,7 +47,7 @@ const SignInPage = () => {
 
       <Button
         variant="link"
-        className="text-right text-kbPurpleMain cursor-pointer self-end"
+        className="cursor-pointer self-end text-right text-kbPurpleMain"
         onClick={() => {
           redirectSignUp();
         }}

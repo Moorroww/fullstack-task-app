@@ -1,8 +1,6 @@
 import { account, databases } from "@/lib/appwrite";
 import { ID, Query } from "appwrite";
 
-type SetColumns = React.Dispatch<React.SetStateAction<Column[]>>;
-
 const DATABASE_ID = `${process.env.NEXT_PUBLIC_APP_DB_ID}`;
 const BOARDS_COLLECTION_ID = `${process.env.NEXT_PUBLIC_APP_DB_BOARDS_ID}`;
 const COLUMNS_COLLECTION_ID = `${process.env.NEXT_PUBLIC_APP_DB_COLUMNS_ID}`;
@@ -146,4 +144,56 @@ export const getTasks = async (columnID: string) => {
   } catch (error) {
     console.log(error);
   }
+};
+
+export const addTask = async (
+  columnID: string,
+  taskTitle: string,
+  taskDescription: string,
+  taskStatus: string,
+) => {
+  try {
+    await databases.createDocument(
+      DATABASE_ID,
+      TASKS_COLLECTION_ID,
+      ID.unique(),
+      {
+        title: taskTitle,
+        description: taskDescription,
+        status: taskStatus,
+        columnID: columnID,
+      },
+    );
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const handleSubtaskNameChange = (
+  id: string,
+  newName: string,
+  subtasks: Subtask[],
+  setSubtasks: setSubtasks,
+): void => {
+  setSubtasks(
+    subtasks.map((subtask) =>
+      subtask.id === id ? { ...subtask, subtaskName: newName } : subtask,
+    ),
+  );
+};
+
+export const addNewSubtask = (
+  subtasks: Subtask[],
+  setSubtasks: setSubtasks,
+): void => {
+  const newId = ID.unique();
+  setSubtasks([...subtasks, { subtaskName: "", id: newId }]);
+};
+
+export const deleteSubtaskField = (
+  id: string,
+  subtasks: Subtask[],
+  setSubtasks: setSubtasks,
+): void => {
+  setSubtasks(subtasks.filter((subtask) => subtask.id !== id));
 };

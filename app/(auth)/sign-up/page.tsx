@@ -4,8 +4,8 @@ import { useState } from "react";
 import { createNewUser, validateSignup } from "@/actions/actions.user";
 import { redirectSignIn } from "@/actions/actions.redirect";
 
+import FormInputField from "@/components/ui/FormInputField";
 import { Button } from "@/components/ui/button";
-import FormInputField from "@/components/FormInputField";
 
 const SignUpPage = () => {
   const [email, setEmail] = useState<string>("");
@@ -22,7 +22,7 @@ const SignUpPage = () => {
   };
 
   return (
-    <div className="flex flex-col gap-8 w-full max-w-[480px] px-6">
+    <div className="flex w-full max-w-[480px] flex-col gap-8 px-6">
       <form
         onSubmit={(e) => handleFormValidation(e)}
         className="flex flex-col gap-3"
@@ -32,16 +32,19 @@ const SignUpPage = () => {
           type="text"
           placeholder="e.g. kanban.user.com"
           method={setEmail}
+          value={email}
         />
         <FormInputField
           fieldName="Password"
           type="password"
           method={setPassword}
+          value={password}
         />
         <FormInputField
           fieldName="Name"
           method={setName}
           placeholder={email.split("@")[0]}
+          value={name}
         />
 
         <Button className="mt-8" type="submit">
@@ -51,7 +54,7 @@ const SignUpPage = () => {
 
       <Button
         variant="link"
-        className="text-right text-kbPurpleMain cursor-pointer self-end"
+        className="cursor-pointer self-end text-right text-kbPurpleMain"
         onClick={() => {
           redirectSignIn();
         }}

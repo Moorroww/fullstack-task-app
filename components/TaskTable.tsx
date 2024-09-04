@@ -1,10 +1,23 @@
+import { useState } from "react";
 import { useQuery } from "react-query";
 import { getTasks } from "@/actions/actions.boardsAndCols";
+import { usePopupsStore } from "@/stores/store.popups";
+import { useColumns } from "@/stores/store.column";
 
 import { Button } from "./ui/button";
 import Task from "./Task";
 
-const TaskTable = ({ columnID }: { columnID: string }) => {
+const TaskTable = ({
+  columnID,
+  columnName,
+}: {
+  columnID: string;
+  columnName: string;
+}) => {
+  const [isAddingTask, setIsAddingTask] = useState(false);
+  const { setIsAddTaskPopupVisible } = usePopupsStore();
+  const { setSelectedColumn } = useColumns();
+
   const {
     data: tasks = [],
     isLoading,
@@ -14,7 +27,7 @@ const TaskTable = ({ columnID }: { columnID: string }) => {
     refetchOnWindowFocus: false,
   });
 
-  if (isLoading)
+  if (isLoading || isAddingTask)
     return (
       <p className="mt-6 flex h-9 w-full animate-pulse rounded-[8px] bg-foreground"></p>
     );
@@ -28,12 +41,19 @@ const TaskTable = ({ columnID }: { columnID: string }) => {
     );
 
   return (
-    <div className="mt-6 flex w-full flex-col gap-5 rounded-[8px]">
+    <div className="my-6 flex w-full flex-col gap-6 rounded-[8px]">
       {tasks.map((task) => (
         <Task key={task.id} task={task} />
       ))}
 
-      <Button className="w-full rounded-[8px]" variant="ghost">
+      <Button
+        className="w-full rounded-[8px]"
+        variant="ghost"
+        onClick={() => {
+          setIsAddTaskPopupVisible(true);
+          setSelectedColumn({ id: columnID, columnName: columnName });
+        }}
+      >
         Add Task
       </Button>
     </div>

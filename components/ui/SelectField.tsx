@@ -7,17 +7,20 @@ import {
   SelectContent,
   SelectItem,
 } from "@/components/ui/select";
-import React, { useState } from "react";
 
-const SelectField = () => {
-  const [taskState, setTaskState] = useState<string>("");
-
+const SelectField = ({
+  status,
+  setStatus,
+}: {
+  status: string;
+  setStatus: React.Dispatch<React.SetStateAction<string>>;
+}) => {
   return (
-    <Select onValueChange={(value) => setTaskState(value)}>
-      <SelectTrigger className="w-[180px]">
-        <SelectValue placeholder={taskState || "Select task status"} />
+    <Select onValueChange={(value) => setStatus(value)}>
+      <SelectTrigger className="w-full">
+        <SelectValue placeholder={status || "Select task status"} />
       </SelectTrigger>
-      <SelectContent>
+      <SelectContent className="w-full">
         <SelectItem value="Todo">Todo</SelectItem>
         <SelectItem value="Doing">Doing</SelectItem>
         <SelectItem value="Done">Done</SelectItem>

@@ -15,7 +15,7 @@ const Sidebar = () => {
   return (
     <aside
       className={cn(
-        "absolute left-1/2 top-[88px] z-10 flex w-[260px] min-w-[260px] -translate-x-1/2 flex-col items-start justify-between rounded-lg border-lines bg-foreground pr-3 tablet:static tablet:z-0 tablet:h-screen tablet:translate-x-0 tablet:rounded-none tablet:border-r-2 desktop:w-[300px] desktop:min-w-[300px]",
+        "fixed left-1/2 top-[88px] z-10 flex w-[260px] min-w-[260px] -translate-x-1/2 flex-col items-start justify-between rounded-lg border-lines bg-foreground pr-3 tablet:static tablet:z-0 tablet:h-screen tablet:translate-x-0 tablet:rounded-none tablet:border-r-2 desktop:w-[300px] desktop:min-w-[300px]",
         isSidebarVisible ? "tablet:flex" : "!hidden",
       )}
     >

@@ -14,6 +14,8 @@ type FormInputFieldProps = {
   type?: string;
   placeholder?: string;
   method: (e: string) => void;
+  additionalClass?: string;
+  value?: string;
 };
 
 type User = {
@@ -26,6 +28,15 @@ type Column = {
   columnName: string;
   id: string;
 };
+
+type SetColumns = React.Dispatch<React.SetStateAction<Column[]>>;
+
+type Subtask = {
+  subtaskName: string;
+  id: string;
+};
+
+type setSubtasks = React.Dispatch<React.SetStateAction<Subtask[]>>;
 
 type Task = {
   id: string;

@@ -6,7 +6,7 @@ const ColumnsMainSection = () => {
   const { selectedBoard } = useBoardsStore();
 
   return (
-    <div className="grid size-full">
+    <div className="grid size-full overflow-scroll">
       {selectedBoard.boardID !== "" ? (
         <Columns />
       ) : (

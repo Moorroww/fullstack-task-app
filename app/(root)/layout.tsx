@@ -12,6 +12,7 @@ import ShowSidebarButton from "@/components/ShowSidebarButton";
 import CreateBoardPopup from "@/components/CreateBoardPopup";
 import DeleteAccountPopup from "@/components/DeleteAccountPopup";
 import AddColumnPopup from "@/components/AddColumnPopup";
+import AddTaskPopup from "@/components/AddTaskPopup";
 
 const HomeLayout = ({ children }: { children: React.ReactNode }) => {
   useAuth();
@@ -28,17 +29,18 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <main className="flex h-screen w-screen">
+      <main className="flex h-[100dvh] w-[100dvw] overflow-hidden">
         <Sidebar />
         <div className="flex flex-grow flex-col">
           <Topbar />
           <MobileSidebarCover />
-          <div className="size-full">{children}</div>
+          <div className="size-full overflow-scroll">{children}</div>
         </div>
         <ShowSidebarButton />
         <CreateBoardPopup />
         <DeleteAccountPopup />
         <AddColumnPopup />
+        <AddTaskPopup />
       </main>
     </QueryClientProvider>
   );

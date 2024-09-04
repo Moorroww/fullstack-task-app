@@ -9,6 +9,8 @@ type StorePopup = {
   setIsDeleteAccountPopupOpen: (isDeleteAccountPopupOpen: boolean) => void;
   isAddColumnPopupVisible: boolean;
   setIsAddColumnPopupVisible: (isAddColumnPopupVisible: boolean) => void;
+  isAddTaskPopupVisible: boolean;
+  setIsAddTaskPopupVisible: (isAddTaskPopupVisible: boolean) => void;
 };
 
 export const usePopupsStore = create<StorePopup>()((set) => ({
@@ -23,4 +25,7 @@ export const usePopupsStore = create<StorePopup>()((set) => ({
   isAddColumnPopupVisible: false,
   setIsAddColumnPopupVisible: (isAddColumnPopupVisible: boolean) =>
     set({ isAddColumnPopupVisible }),
+  isAddTaskPopupVisible: false,
+  setIsAddTaskPopupVisible: (isAddTaskPopupVisible: boolean) =>
+    set({ isAddTaskPopupVisible }),
 }));
