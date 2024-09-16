@@ -19,7 +19,7 @@ import { Button } from "./ui/button";
 const AddTaskForm = () => {
   const queryClient = useQueryClient();
   const { selectedColumn } = useColumns();
-  const { setIsAddTaskPopupVisible } = usePopupsStore();
+  const { setPopup } = usePopupsStore();
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [subtasks, setSubtasks] = useState<Subtask[]>([]);
@@ -34,7 +34,7 @@ const AddTaskForm = () => {
     try {
       await addTask(selectedColumn.id, title, description, status);
       queryClient.invalidateQueries(["tasks", selectedColumn.id]);
-      setIsAddTaskPopupVisible(false);
+      setPopup("");
       setTitle("");
       setDescription("");
       setSubtasks([]);

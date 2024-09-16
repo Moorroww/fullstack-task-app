@@ -8,7 +8,7 @@ import { Button } from "./ui/button";
 
 const Columns = () => {
   const { selectedBoard } = useBoardsStore();
-  const { setIsAddColumnPopupVisible } = usePopupsStore();
+  const { setPopup } = usePopupsStore();
 
   const { data: cols = [], refetch } = useQuery(
     ["columns", selectedBoard.boardID],
@@ -27,7 +27,7 @@ const Columns = () => {
           </p>
           <Button
             disabled={selectedBoard.boardID === ""}
-            onClick={() => setIsAddColumnPopupVisible(true)}
+            onClick={() => setPopup("addColumn")}
           >
             + Add New Column
           </Button>
@@ -40,7 +40,7 @@ const Columns = () => {
 
           <div
             className="flex h-[98%] min-w-[280px] cursor-pointer items-center justify-center rounded-[6px] bg-foreground/40"
-            onClick={() => setIsAddColumnPopupVisible(true)}
+            onClick={() => setPopup("addColumn")}
           >
             <p className="heading-xl text-kbMediumGrey">+New Column</p>
           </div>

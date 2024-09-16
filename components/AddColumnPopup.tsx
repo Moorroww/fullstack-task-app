@@ -3,15 +3,13 @@ import { useQueryClient } from "react-query";
 import { addColumn } from "@/actions/actions.boardsAndCols";
 import { usePopupsStore } from "@/stores/store.popups";
 import { useBoardsStore } from "@/stores/store.boards";
-import { cn } from "@/lib/utils";
 
 import TextField from "./TextField";
 import { Button } from "./ui/button";
 
 const AddColumnPopup = () => {
   const { selectedBoard } = useBoardsStore();
-  const { isAddColumnPopupVisible, setIsAddColumnPopupVisible } =
-    usePopupsStore();
+  const { setPopup } = usePopupsStore();
   const [columnName, setColumnName] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -23,7 +21,7 @@ const AddColumnPopup = () => {
     try {
       await addColumn(selectedBoard.boardID, columnName);
       queryClient.invalidateQueries(["columns", selectedBoard.boardID]);
-      setIsAddColumnPopupVisible(false);
+      setPopup("");
     } catch (error) {
       console.error(error);
     } finally {
@@ -32,16 +30,7 @@ const AddColumnPopup = () => {
   };
 
   return (
-    <div
-      className={cn(
-        "absolute left-0 top-0 z-20 h-screen w-screen bg-black/50",
-        !isAddColumnPopupVisible && "hidden",
-      )}
-      onClick={(e) => {
-        setIsAddColumnPopupVisible(true);
-        e.stopPropagation();
-      }}
-    >
+    <>
       <form
         onSubmit={handleColumnAdd}
         onClick={(e) => e.stopPropagation()}
@@ -66,7 +55,7 @@ const AddColumnPopup = () => {
                 type="button"
                 className="w-full"
                 variant="secondary"
-                onClick={() => setIsAddColumnPopupVisible(false)}
+                onClick={() => setPopup("")}
               >
                 Cancel
               </Button>
@@ -74,7 +63,7 @@ const AddColumnPopup = () => {
           </>
         )}
       </form>
-    </div>
+    </>
   );
 };
 

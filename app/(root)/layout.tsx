@@ -9,10 +9,7 @@ import Topbar from "@/components/Topbar";
 import Sidebar from "@/components/Sidebar";
 import MobileSidebarCover from "@/components/MobileSidebarCover";
 import ShowSidebarButton from "@/components/ShowSidebarButton";
-import CreateBoardPopup from "@/components/CreateBoardPopup";
-import DeleteAccountPopup from "@/components/DeleteAccountPopup";
-import AddColumnPopup from "@/components/AddColumnPopup";
-import AddTaskPopup from "@/components/AddTaskPopup";
+import PopupWrapper from "@/components/PopupWrapper";
 
 const HomeLayout = ({ children }: { children: React.ReactNode }) => {
   useAuth();
@@ -37,10 +34,7 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
           <div className="size-full overflow-scroll">{children}</div>
         </div>
         <ShowSidebarButton />
-        <CreateBoardPopup />
-        <DeleteAccountPopup />
-        <AddColumnPopup />
-        <AddTaskPopup />
+        <PopupWrapper />
       </main>
     </QueryClientProvider>
   );

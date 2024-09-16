@@ -8,8 +8,7 @@ import BoardIcon from "@/public/icons/BoardIcon";
 const SidebarBoardsList = () => {
   const { selectedBoard, setSelectedBoard } = useBoardsStore();
 
-  const { setIsSidebarVisible, setIsCreateBoardPopupVisible } =
-    usePopupsStore();
+  const { setIsSidebarVisible, setPopup } = usePopupsStore();
 
   const { boards, isLoading, isError } = useBoards();
 
@@ -64,7 +63,7 @@ const SidebarBoardsList = () => {
                 <span
                   className="text-kbPurpleMain"
                   onClick={() => {
-                    setIsCreateBoardPopupVisible(true);
+                    setPopup("createBoard");
                     window.innerWidth < 768 && setIsSidebarVisible(false);
                   }}
                 >

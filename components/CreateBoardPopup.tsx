@@ -7,15 +7,13 @@ import {
   addNewColumn,
   createNewBoard,
 } from "@/actions/actions.boardsAndCols";
-import { cn } from "@/lib/utils";
 
 import Image from "next/image";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 
 const CreateBoardPopup = () => {
-  const { isCreateBoardPopupVisible, setIsCreateBoardPopupVisible } =
-    usePopupsStore();
+  const { setPopup } = usePopupsStore();
   const { refetch } = useBoards();
   const [columns, setColumns] = useState<Column[]>([]);
   const [boardName, setBoardName] = useState<string>("");
@@ -27,7 +25,7 @@ const CreateBoardPopup = () => {
     try {
       await createNewBoard(boardName, columns);
       refetch();
-      setIsCreateBoardPopupVisible(false);
+      setPopup("");
     } catch (error) {
       console.error(error);
     } finally {
@@ -36,13 +34,7 @@ const CreateBoardPopup = () => {
   };
 
   return (
-    <div
-      className={cn(
-        "absolute left-0 top-0 z-30 grid h-screen w-screen place-items-center bg-black/50",
-        isCreateBoardPopupVisible ? "flex" : "hidden",
-      )}
-      onClick={() => setIsCreateBoardPopupVisible(!isCreateBoardPopupVisible)}
-    >
+    <>
       {isLoading ? (
         <div className="mx-auto grid w-[95%] max-w-[480px] place-items-center rounded-[6px] bg-foreground p-6">
           <p className="animate-pulse text-kbPurpleSecondary">
@@ -112,7 +104,7 @@ const CreateBoardPopup = () => {
           </Button>
         </form>
       )}
-    </div>
+    </>
   );
 };
 

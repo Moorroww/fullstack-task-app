@@ -10,8 +10,7 @@ import { Button } from "@/components/ui/button";
 
 const Topbar = () => {
   const { selectedBoard } = useBoardsStore();
-  const { isSidebarVisible, setIsSidebarVisible, setIsAddColumnPopupVisible } =
-    usePopupsStore();
+  const { isSidebarVisible, setIsSidebarVisible, setPopup } = usePopupsStore();
 
   const [boardOptionsVisible, setBoardOptionsVisible] =
     useState<boolean>(false);
@@ -49,7 +48,7 @@ const Topbar = () => {
           <Button
             disabled={selectedBoard.boardID == ""}
             className="flex items-center gap-1"
-            onClick={() => setIsAddColumnPopupVisible(true)}
+            onClick={() => setPopup("addColumn")}
           >
             <Image
               src="/icons/icon-add-task-mobile.svg"

@@ -60,3 +60,8 @@ Users should be able to:
 - GitHub - [Moorroww](https://github.com/Moorroww/)
 - LinkedIn - [Norbert Adamus](https://www.linkedin.com/in/norbert-adamus-6248291b6)
 - Frontend Mentor - [@Moorroww](https://www.frontendmentor.io/profile/Moorroww)
+
+## Emergency ToDo >.<
+
+1. Rebuild the sidebar, so it's more responsive.
+1. Fix fetching of sidebar boards after a new board is added. The issue occurred after the new popup system was implemented.

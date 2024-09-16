@@ -1,23 +1,12 @@
 import { deleteAccount } from "@/actions/actions.user";
 import { usePopupsStore } from "@/stores/store.popups";
-import { cn } from "@/lib/utils";
 
 import { Button } from "./ui/button";
 
 const DeleteAccountPopup = () => {
-  const { isDeleteAccountPopupOpen, setIsDeleteAccountPopupOpen } =
-    usePopupsStore();
+  const { setPopup } = usePopupsStore();
   return (
-    <div
-      className={cn(
-        "absolute left-0 top-0 z-20 h-screen w-screen bg-black/50",
-        !isDeleteAccountPopupOpen && "hidden",
-      )}
-      onClick={(e) => {
-        setIsDeleteAccountPopupOpen(!isDeleteAccountPopupOpen);
-        e.stopPropagation();
-      }}
-    >
+    <>
       <div className="absolute left-1/2 top-1/2 z-30 w-3/4 max-w-[480px] -translate-x-1/2 -translate-y-1/2 rounded-[6px] bg-foreground p-6 tablet:p-8">
         <h2 className="heading-l text-kbRed">Delete account?</h2>
         <p className="my-6 text-kbMediumGrey">
@@ -35,15 +24,13 @@ const DeleteAccountPopup = () => {
           <Button
             className="w-full"
             variant="secondary"
-            onClick={() =>
-              setIsDeleteAccountPopupOpen(!isDeleteAccountPopupOpen)
-            }
+            onClick={() => setPopup("")}
           >
             Cancel
           </Button>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

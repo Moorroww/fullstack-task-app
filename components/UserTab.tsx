@@ -7,13 +7,13 @@ import Image from "next/image";
 
 const UserTab = () => {
   const { user } = useUser();
-  const { setIsDeleteAccountPopupOpen } = usePopupsStore();
+  const { setPopup } = usePopupsStore();
 
   return (
     <div className="flex items-center justify-between">
       <div
         className="flex w-[70%] cursor-pointer items-center justify-between gap-2 rounded-[6px] bg-background px-6 py-3"
-        onClick={() => setIsDeleteAccountPopupOpen(true)}
+        onClick={() => setPopup("deleteAccount")}
       >
         <div className="flex items-center gap-2">
           <User size={16} className="stroke-kbMediumGrey" />

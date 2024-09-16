@@ -15,7 +15,7 @@ const TaskTable = ({
   columnName: string;
 }) => {
   const [isAddingTask, setIsAddingTask] = useState(false);
-  const { setIsAddTaskPopupVisible } = usePopupsStore();
+  const { setPopup } = usePopupsStore();
   const { setSelectedColumn } = useColumns();
 
   const {
@@ -50,7 +50,7 @@ const TaskTable = ({
         className="w-full rounded-[8px]"
         variant="ghost"
         onClick={() => {
-          setIsAddTaskPopupVisible(true);
+          setPopup("addTask");
           setSelectedColumn({ id: columnID, columnName: columnName });
         }}
       >
