@@ -63,5 +63,6 @@ Users should be able to:
 
 ## Emergency ToDo >.<
 
-1. Rebuild the sidebar, so it's more responsive.
-1. Fix fetching of sidebar boards after a new board is added. The issue occurred after the new popup system was implemented.
+1. Rebuild the sidebar, so it's more responsive. ✅
+1. Fix: fetching of sidebar boards after a new board is added. The issue occurred after the new popup system was implemented.
+1. Fix: Rendering of Boards/Columns/Tasks after Theme Switch. After theme change the boards/columns/tasks are not rendering after creation.

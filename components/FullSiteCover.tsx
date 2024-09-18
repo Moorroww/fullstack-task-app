@@ -1,5 +1,3 @@
-import React from "react";
-
 const FullSiteCover = ({
   boardOptionsVisible,
   setBoardOptionsVisible,
@@ -10,7 +8,7 @@ const FullSiteCover = ({
   return (
     <div
       onClick={() => setBoardOptionsVisible(!boardOptionsVisible)}
-      className="absolute left-0 top-0 z-20 h-screen w-screen bg-black/50"
+      className="absolute left-0 top-0 z-50 h-screen w-screen bg-black/50"
     ></div>
   );
 };

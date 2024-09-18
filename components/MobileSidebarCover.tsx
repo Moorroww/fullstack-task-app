@@ -7,7 +7,7 @@ const MobileSidebarCover = () => {
     <div
       onClick={() => setIsSidebarVisible(!isSidebarVisible)}
       className={cn(
-        "absolute left-0 top-[58.5px] h-full w-screen bg-black/50 tablet:hidden",
+        "fixed left-0 top-0 h-full w-screen bg-black/50 tablet:hidden",
         isSidebarVisible ? "flex" : "hidden",
       )}
     ></div>
