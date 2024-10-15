@@ -1,7 +1,7 @@
 import { deleteAccount } from "@/actions/actions.user";
 import { usePopupsStore } from "@/stores/store.popups";
 
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 
 const DeleteAccountPopup = () => {
   const { setPopup } = usePopupsStore();

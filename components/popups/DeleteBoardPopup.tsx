@@ -1,7 +1,7 @@
 import { useBoardsStore } from "@/stores/store.boards";
 import { deleteBoard } from "@/actions/actions.boardsAndCols";
 
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 
 const DeleteBoardPopup = ({
   boardOptionsVisible,

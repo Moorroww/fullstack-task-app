@@ -1,10 +1,10 @@
 import { cn } from "@/lib/utils";
 import { usePopupsStore } from "@/stores/store.popups";
 
-import CreateBoardPopup from "./CreateBoardPopup";
-import AddColumnPopup from "./AddColumnPopup";
-import AddTaskPopup from "./AddTaskPopup";
-import DeleteAccountPopup from "./DeleteAccountPopup";
+import CreateBoardPopup from "./popups/CreateBoardPopup";
+import AddColumnPopup from "./popups/CreateColumnPopup";
+import AddTaskPopup from "./popups/CreateTaskPopup";
+import DeleteAccountPopup from "./popups/DeleteAccountPopup";
 
 const PopupWrapper = () => {
   const { popup, setPopup } = usePopupsStore();

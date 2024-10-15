@@ -9,8 +9,8 @@ import {
 } from "@/actions/actions.boardsAndCols";
 
 import Image from "next/image";
-import { Input } from "./ui/input";
-import { Button } from "./ui/button";
+import { Input } from "../ui/input";
+import { Button } from "../ui/button";
 
 const CreateBoardPopup = () => {
   const { setPopup } = usePopupsStore();

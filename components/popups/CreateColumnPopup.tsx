@@ -4,8 +4,8 @@ import { addColumn } from "@/actions/actions.boardsAndCols";
 import { usePopupsStore } from "@/stores/store.popups";
 import { useBoardsStore } from "@/stores/store.boards";
 
-import TextField from "./TextField";
-import { Button } from "./ui/button";
+import TextField from "../TextField";
+import { Button } from "../ui/button";
 
 const AddColumnPopup = () => {
   const { selectedBoard } = useBoardsStore();

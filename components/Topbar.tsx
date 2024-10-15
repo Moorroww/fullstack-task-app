@@ -4,7 +4,7 @@ import { useBoardsStore } from "@/stores/store.boards";
 import { cn } from "@/lib/utils";
 
 import FullSiteCover from "./FullSiteCover";
-import DeleteBoardPopup from "./DeleteBoardPopup";
+import DeleteBoardPopup from "./popups/DeleteBoardPopup";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 
